@@ -1,0 +1,64 @@
+<!DOCTYPE html>
+<html lang="en-GB">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>Welcome to Website</title>
+    <link rel="stylesheet" href="style.css">
+    <script src="https://code.jquery.com/jquery-3.3.1.slim.min.js"
+        integrity="sha384-q8i/X+965DzO0rT7abK41JStQIAqVgRVzpbzo5smXKp4YfRvH+8abtTE1Pi6jizo"
+        crossorigin="anonymous"></script>
+
+    <script src="https://cdnjs.cloudflare.com/ajax/libs/jspdf/1.4.1/jspdf.min.js"></script>
+    <script src="https://cdnjs.cloudflare.com/ajax/libs/jspdf-autotable/2.3.5/jspdf.plugin.autotable.min.js"></script>
+
+</head>
+<body>
+    <nav>
+        <h1>Welcome to Pooja Clinic</h1>
+    </nav>
+    <main>
+
+
+    <div>
+    <form id="name-date-form">
+        <div>
+        <label for="patient_name_input">Enter Patient Name: </label>
+        <input type="text" id="patient_name_input">
+        </div>
+        <div>
+    </div>
+        <button type="submit">Submit</button>
+        <p class="warning-text">Name CANNOT be empty</p>
+    </form>
+</div>
+
+<select id="program_selector">
+    <option>Traction</option>
+    <option>IFT</option>
+</select>
+
+    <div class="table_container">
+    <table id="traction_table">
+        <tr>
+            <th id="set_patient_name" colspan="5">
+                Patient Name to be come here
+            </th>
+        </tr>
+        <tr>
+            <th>Day</th>
+            <th>Date</th>
+            <th>Unknown Field</th>
+            <th id="program_selector_heading">
+                
+            </th>
+            <th>Weight</th>
+        </tr>
+
+    </table>
+    <button id="generate_table">Export to Pdf</button>
+</div>
+</main>
+</body>
+<script src="app.js"></script>
+</html>
