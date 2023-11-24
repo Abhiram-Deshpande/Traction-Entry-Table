@@ -98,7 +98,6 @@ function generateTraction(patient_name){
     traction_cols.forEach(col_name => {
         innerHTMLString+=`<th>${col_name}</th>`
     });
-    console.log(innerHTMLString)
     table_reference.innerHTML=`<tr><th colspan="${traction_cols.length}">${patient_name}</th></tr><tr>${innerHTMLString}</tr>`
     for(let i=0;i<10;i++){
         let child=document.createElement('tr')
@@ -111,17 +110,14 @@ function generateTraction(patient_name){
         <td></td>
         </tr>`
         table_reference.appendChild(child)
-        today = new Date()
+        today = new Date(currentDate.getTime()+3600*24*1000);
         console.log(currentDate.getDay())
-        if(currentDate.getDay()==0){
-        today.setDate(currentDate.getDate()+2);
+        if(today.getDay()==0){
+        today =new Date(currentDate.getTime()+3600*24*1000*2);
         }
-        else{
-            today.setDate(currentDate.getDate()+1);
-        }
-        
+          
         currentDate = today;
-        day++; 
+        day++;  
 }
 }
 function generateIFT(patient_name){
@@ -147,15 +143,12 @@ function generateIFT(patient_name){
         </tr>`
 
         table_reference.appendChild(child)
-        today = new Date()
+        today = new Date(currentDate.getTime()+3600*24*1000);
         console.log(currentDate.getDay())
-        if(currentDate.getDay()==0){
-        today.setDate(currentDate.getDate()+2);
+        if(today.getDay()==0){
+        today =new Date(currentDate.getTime()+3600*24*1000*2);
         }
-        else{
-            today.setDate(currentDate.getDate()+1);
-        }
-        
+          
         currentDate = today;
         day++; 
 
