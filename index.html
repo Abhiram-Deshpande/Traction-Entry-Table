@@ -28,15 +28,20 @@
         </div>
         <div>
     </div>
+    <select id="program_selector">
+        <option>Traction</option>
+        <option>IFT</option>
+    </select>
+    
+    <select id="treatment_selector" style="display: none;">
+        <option>Manual Mode</option>
+    </select>
         <button type="submit">Submit</button>
         <p class="warning-text">Name CANNOT be empty</p>
     </form>
 </div>
 
-<select id="program_selector">
-    <option>Traction</option>
-    <option>IFT</option>
-</select>
+
 
     <div class="table_container">
     <table id="traction_table">
@@ -49,9 +54,7 @@
             <th>Day</th>
             <th>Date</th>
             <th>Unknown Field</th>
-            <th id="program_selector_heading">
-                
-            </th>
+            <th id="program_selector_heading"></th>
             <th>Weight</th>
         </tr>
 
