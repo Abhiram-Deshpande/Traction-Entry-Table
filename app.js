@@ -5,10 +5,19 @@ const table_reference =  document.getElementsByTagName("table")[0]
 const patient_name = document.getElementById("patient_name_input").innerText;
 const warning_text = document.getElementsByClassName("warning-text")[0];
 const program_selector = document.getElementById("program_selector")
+let treatment_selector = document.getElementById("treatment_selector")
 let program_value = "Traction";
 const program_selector_heading = document.getElementById("program_selector_heading")
 let pName;
 const days=['Sunday',""]
+
+const traction_cols=["Day","Date","Combo","Static","Weight"]
+const ift_cols= ["Day","Date","Program","Pole Mode"]
+const treatment_array=
+['Manual Mode','Myalgia','Cervical','Shoulder 1','Shoulder 1','Torn Muscle','Tonic Muscle',
+'Scoliosis','Bursitis','Rheumatoid Arthritis','Arthritis Rheumatic','Tendopathy','Ankle Distortion',
+'Reynaud\'s Disease','Post Operative muscle hypotonia','Herpes Zoster','Neuralgia','Ischialgia','Cruciate Ligament Strain',
+'Hypertonic trapezius muscle','Capsulitis','Spondylarthritis','Medical Ligament Strain','Calf Muscle Strain','Muscle Strenghtning']
 
 generate_extended_table_button.addEventListener("click",()=>{
     
@@ -32,6 +41,14 @@ generate_extended_table_button.addEventListener("click",()=>{
 
 let form = document.getElementById("name-date-form")
 
+program_selector.onchange = ()=>{
+    if(program_selector.value==="IFT")
+    {
+        treatment_selector.style.display="block"
+        generateSelectList();
+    }
+   
+}
 form.addEventListener('submit',(event)=>{
     event.preventDefault()
     pName =  document.getElementById("patient_name_input").value
@@ -61,25 +78,38 @@ function generateExtendedTable(patient_name){
     let program_value = document.getElementById("program_selector").value;
 
     if(program_value==="Traction"){
-        generateTraction();
+        generateTraction(patient_name);
     }
     else{
-        generateIFT();
+        treatment_array.sort();
+        
+        generateIFT(patient_name);
     }
 
   
 isGenerated = !isGenerated;
 }
 
-function generateTraction(){
+function generateTraction(patient_name){
     let today = new Date()
     let day=1;
-    let currentDate=today;
-    program_value=program_selector.value;
-
+    let currentDate=new Date(today);
+    let innerHTMLString ="";
+    traction_cols.forEach(col_name => {
+        innerHTMLString+=`<th>${col_name}</th>`
+    });
+    console.log(innerHTMLString)
+    table_reference.innerHTML=`<tr><th colspan="${traction_cols.length}">${patient_name}</th></tr><tr>${innerHTMLString}</tr>`
     for(let i=0;i<10;i++){
         let child=document.createElement('tr')
-        child.innerHTML=`<tr><td>${day}</td><td>${today.getDate()+"/"+(today.getMonth()+1)+"/"+today.getFullYear()}</td><td>Combo</td><td>${program_value}</td><td>Static</td><td>Weight</td></tr>`
+        child.innerHTML=`<tr>
+        <td>${day}</td>
+        <td>${today.getDate()+"-"+(today.getMonth()+1)+"-"+today.getFullYear()}</td>
+        <td>
+        <input type="number" max="60" min="10" step="10"></input></td>
+        <td><input type="number"></td>
+        <td></td>
+        </tr>`
         table_reference.appendChild(child)
         today = new Date()
         console.log(currentDate.getDay())
@@ -91,20 +121,31 @@ function generateTraction(){
         }
         
         currentDate = today;
-        day++;
-    
+        day++; 
 }
 }
-function generateIFT(){
+function generateIFT(patient_name){
     let today = new Date()
     let day=1;
     let currentDate=today;
-    program_value=program_selector.value;
-    program_selector_heading.innerHTML=`Program`
+    let innerHTMLString ="";
+    let selected_treatment = treatment_selector.value;
+    
+    ift_cols.forEach(col_name => {    
+            innerHTMLString+=`<th>${col_name}</th>`    
+    });
+    
+        table_reference.innerHTML=`<tr><th colspan="${ift_cols.length}">${patient_name}</th></tr><tr>${innerHTMLString}</tr>`
 
     for(let i=0;i<10;i++){
         let child=document.createElement('tr')
-        child.innerHTML=`<tr><td>${day}</td><td>${today.getDate()+"/"+(today.getMonth()+1)+"/"+today.getFullYear()}</td><td>Unkonwn Field</td><td>${program_value}</td><td></td></tr>`
+        child.innerHTML=`<tr>
+        <td>${day}</td>
+        <td>${today.getDate()+"-"+(today.getMonth()+1)+"-"+today.getFullYear()}</td>
+        <td>${selected_treatment}</td>
+        <td></td>
+        </tr>`
+
         table_reference.appendChild(child)
         today = new Date()
         console.log(currentDate.getDay())
@@ -116,7 +157,17 @@ function generateIFT(){
         }
         
         currentDate = today;
-        day++;
-    
+        day++; 
+
+    }
 }
+
+function generateSelectList(){
+
+    let treatementInnerHTML ="";
+    treatment_array.sort();
+    treatment_array.forEach((treatment,index)=>{
+        treatementInnerHTML+=`<option id=${index}>${treatment}</option>`
+    })
+    treatment_selector.innerHTML=treatementInnerHTML;
 }
